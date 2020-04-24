@@ -23,48 +23,55 @@ export default class Main extends Component {
     this.handleRefundIncreaseChanged = this.handleRefundIncreaseChanged.bind(this);
     this.handleRemovalYearsChanged = this.handleRemovalYearsChanged.bind(this);
     this.refundQuantity = this.refundQuantity.bind(this);
+    this.emissionsToRemove = this.emissionsToRemove.bind(this);
   }
 
   handleYearlyEmissionChanged(e) {
     this.setState({annualEmissions: e});
+    this.emissionsToRemove();
   }
 
   handleHistoricalEmissionsChanged(e) {
     this.setState({historicalEmissions: e});
-    
+    this.emissionsToRemove();
   }
 
   handleRefundEmissionsChanged(e) {
     this.setState({refundEmissions: e});
     this.refundQuantity();
+    this.emissionsToRemove();
   }
 
   handleRefundIncreaseChanged(e) {
     this.setState({refundIncrease: e});
     this.refundQuantity();
+    this.emissionsToRemove();
   }
 
   handleRemovalYearsChanged(e) {
     this.setState({removalYears: e});
     this.refundQuantity();
+    this.emissionsToRemove();
   }
 
   refundQuantity() {
-    var years = 0;
-    if (this.state.removalYears > 1) {
-      years = this.state.removalYears-=1;
-    } else if (this.state.removalYears === 1) {
-      years = 1;
-    }
-    
-    console.log(`Years ${years} RefundIncrease: ${this.state.refundIncrease} Refunded emissions ${this.state.refundEmissions}`);
     this.setState({
       refundQuantity: 
-      years * (this.state.refundIncrease * 0.01) * this.state.refundEmissions
+      this.state.removalYears * (this.state.refundIncrease * 0.01) * this.state.refundEmissions
     });
   }
+
+  emissionsToRemove() {
+    const yearlyEmissionsGap = this.state.annualEmissions - this.state.refundEmissions;
+    const emissions = (this.state.removalYears * yearlyEmissionsGap);
+    const toRemove = emissions + this.state.historicalEmissions - this.state.refundQuantity;
+    console.log(`YearlyEmissionsGap: ${yearlyEmissionsGap}`);
+    console.log(`emissions: ${emissions}`);
+    console.log(`toRemove: ${toRemove}`);
+    this.setState({emissionsToRemove: toRemove});
+  }
+
   render() {
-    
     return (
       <div className="grid-x">
         <div class="cell large-3 medium-2 small-0"></div>
