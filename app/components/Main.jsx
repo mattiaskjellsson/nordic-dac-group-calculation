@@ -4,6 +4,7 @@ import CalculationCalculation from './CalculationCalculation';
 import CalculationEmissions from './CalculationEmissions';
 import CalculationSettings from './CalculationSettings';
 import CalculationValues from './CalculationValues';
+import Chart from './Chart';
 import FrontrunnerCosts from './FrontrunnerCosts';
 
 export default class Main extends Component {
@@ -170,6 +171,14 @@ export default class Main extends Component {
             administrationCost={this.state.administrationCost}
             totalCost={this.state.totalCost}
           />
+          <Chart 
+            removalYears={this.state.removalYears}
+            emissionsToRemove={this.state.emissionsToRemove}
+            historicalEmissions = {this.state.historicalEmissions}
+            annualEmissions = {this.state.annualEmissions}
+            annualRefund = {this.state.refundEmissions}
+            annualRefundIncrease = {this.state.refundEmissions}
+          />
         </div>
         <div class="cell large-3 medium-2 small-0"></div>
       </div>
@@ -188,6 +197,7 @@ Main.defaultState = {
   historicalEmissions: 0,
   refundEmissions: 0,
   refundIncrease: 0,
+  refundQuantity: 0,
   removalYears: 1,
   annualCosts: 0,
   optionMonthsCost: 0,
