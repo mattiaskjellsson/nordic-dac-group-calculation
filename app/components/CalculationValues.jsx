@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NumberFormat from 'react-number-format';
 
 export default class CalculationValues extends Component {
   constructor(props) {
@@ -22,13 +23,21 @@ export default class CalculationValues extends Component {
           </div>
           <div className="card-section">
             <h4 className="display-header">Refund quantity</h4>
-            <p className="display-value">{ refund } Mt CO<sub>2</sub></p>
+            <p className="display-value">
+              <NumberFormat value={refund} displayType={'text'} thousandSeparator={true} decimalScale={0} />Mt CO<sub>2</sub>
+            </p>
             <h4 className="display-header">Years before neutral</h4>
-            <p className="display-value">{ this.props.yearsBeforeNeutral } Years</p>
+            <p className="display-value">
+              <NumberFormat value={this.props.yearsBeforeNeutral} displayType={'text'} thousandSeparator={true} decimalScale={0} />Years
+            </p>
             <h4 className="display-header">Emissions to remove</h4>
-            <p className="display-value">{ emissions } Mt CO<sub>2</sub></p>
+            <p className="display-value">
+              <NumberFormat value={emissions} displayType={'text'} thousandSeparator={true} decimalScale={0} />Mt CO<sub>2</sub>
+            </p>
             <h4 className="display-header">Climate neutral</h4>
-            <p className="display-value">{ this.climateNeutral() }</p>
+            <p className="display-value">
+              <NumberFormat value={this.climateNeutral()} displayType={'text'} thousandSeparator={false} decimalScale={0} />
+            </p>
           </div>
         </div>
     );
