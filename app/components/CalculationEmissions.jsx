@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NumberFormat from 'react-number-format';
 
 export default class CalculationEmissions extends Component {
   constructor(props) {
@@ -13,13 +14,21 @@ export default class CalculationEmissions extends Component {
         </div>
         <div class="card-section">
           <h4>Emission year</h4>
-          <p>{this.props.yearlyEmissions} Mt CO2</p>
+          <p>
+            <NumberFormat value={this.props.yearlyEmissions} displayType={'text'} thousandSeparator={true} decimalScale={0} /> Mt CO<sub>2</sub>
+          </p>
           <h4>Historical emissions</h4>
-          <p>{this.props.historicalEmissions} Mt C02</p>
+          <p>
+            <NumberFormat value={this.props.historicalEmissions} displayType={'text'} thousandSeparator={true} decimalScale={0} /> Mt C0<sub>2</sub>
+          </p>
           <h4>Refund emissions</h4>
-          <p>{this.props.refundEmissions} Mt CO2</p>
+          <p>
+            <NumberFormat value={this.props.refundEmissions} displayType={'text'} thousandSeparator={true} decimalScale={0} /> Mt CO<sub>2</sub>
+          </p>
           <h4>DAC Gap emissions</h4>
-          <p>{this.props.yearlyEmissions + this.props.historicalEmissions - this.props.refundEmissions} Mt CO2</p>
+          <p>
+            <NumberFormat value={ this.props.yearlyEmissions + this.props.historicalEmissions - this.props.refundEmissions } displayType={'text'} thousandSeparator={true} decimalScale={0} /> Mt CO
+          </p>
         </div>
       </div>
     )

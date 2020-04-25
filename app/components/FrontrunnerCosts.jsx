@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
+import NumberFormat from 'react-number-format';
 
 export default class FrontrunnerCosts extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <div>
@@ -10,13 +15,21 @@ export default class FrontrunnerCosts extends Component {
           </div>
           <div class="card-section">
             <h4>Annual cost</h4>
-            <p>$ 0</p>
+            <p>
+              <NumberFormat value={this.props.annualCosts} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} />
+            </p>
             <h4>Option Month's cost</h4>
-            <p>$ 0</p>
+            <p>
+              <NumberFormat value={this.props.optionMonthsCost} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} />
+            </p>
             <h4>Adminstration cost</h4>
-            <p>$ 0</p>
+            <p>
+              <NumberFormat value={this.props.administrationCost} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} />
+            </p>
             <h4>Total cost</h4>
-            <p>$ 1</p>
+            <p>
+              <NumberFormat value={this.props.totalCost} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} />
+            </p>
           </div>
         </div>
         <img src="graph-placeholder.jpg" alt="graph placeholder"/>
@@ -24,3 +37,10 @@ export default class FrontrunnerCosts extends Component {
     )
   }
 }
+
+FrontrunnerCosts.defaultProps = {
+  annualCosts: 0,
+  optionMonthsCost: 0,
+  administrationCost: 0,
+  totalCost: 0,
+};
