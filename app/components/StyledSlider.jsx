@@ -28,16 +28,16 @@ export default class StyledSlider extends Component {
     `;
 
     const StyledThumb = styled.div`
-      height: 25px;
-      line-height: 25px;
-      width: 25px;
+      height: 30px;
+      line-height: 30px;
+      width: 30px;
       text-align: center;
       background-color: #3d86c6;
       color: #fff;
-      border-radius: 50%;
+      border-radius: 5%;
       cursor: grab;
       position: relative;
-      top: -7px;
+      top: -10px;
     `;
 
     const Thumb = (props, state) => <StyledThumb {...props}>{state.valueNow}</StyledThumb>;
