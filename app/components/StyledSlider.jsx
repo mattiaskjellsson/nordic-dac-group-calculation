@@ -22,8 +22,8 @@ export default class StyledSlider extends Component {
   render() {
     const StyledSlider = styled(ReactSlider)`
       width: 100%;
-      height: 25px;
-      background-color: #ccc;
+      height: 10px;
+      background-color: #eee;
       border-radius: 10px;
     `;
 
@@ -36,6 +36,8 @@ export default class StyledSlider extends Component {
       color: #fff;
       border-radius: 50%;
       cursor: grab;
+      position: relative;
+      top: -7px;
     `;
 
     const Thumb = (props, state) => <StyledThumb {...props}>{state.valueNow}</StyledThumb>;

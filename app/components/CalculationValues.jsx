@@ -16,19 +16,19 @@ export default class CalculationValues extends Component {
     const refund = this.props.refundQuantity.toPrecision(3);
     const emissions = this.props.emissionsToRemove.toPrecision(3);
     return (
-        <div class="radius bordered shadow card">
-          <div class="card-divider">
+        <div className="radius bordered shadow card">
+          <div className="card-divider">
             Values
           </div>
-          <div class="card-section">
-            <h4>Refund quantity</h4>
-            <p>{ refund } Mt CO<sub>2</sub></p>
-            <h4>Years before neutral</h4>
-            <p>{ this.props.yearsBeforeNeutral } Years</p>
-            <h4>Emissions to remove</h4>
-            <p>{ emissions } Mt CO<sub>2</sub></p>
-            <h4>Climate neutral</h4>
-            <p>{ this.climateNeutral() }</p>
+          <div className="card-section">
+            <h4 className="display-header">Refund quantity</h4>
+            <p className="display-value">{ refund } Mt CO<sub>2</sub></p>
+            <h4 className="display-header">Years before neutral</h4>
+            <p className="display-value">{ this.props.yearsBeforeNeutral } Years</p>
+            <h4 className="display-header">Emissions to remove</h4>
+            <p className="display-value">{ emissions } Mt CO<sub>2</sub></p>
+            <h4 className="display-header">Climate neutral</h4>
+            <p className="display-value">{ this.climateNeutral() }</p>
           </div>
         </div>
     );

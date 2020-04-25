@@ -145,7 +145,6 @@ export default class Main extends Component {
   render() {
     return (
       <div className="grid-x">
-        <div class="cell large-3 medium-2 small-0"></div>
         <div className="large-6 medium-8 small-12">
           <CalculationSettings 
             onYearlyEmissionsChange={this.handleYearlyEmissionChanged}
@@ -180,7 +179,6 @@ export default class Main extends Component {
             annualRefundIncrease = {this.state.refundEmissions}
           />
         </div>
-        <div class="cell large-3 medium-2 small-0"></div>
       </div>
     );
   }

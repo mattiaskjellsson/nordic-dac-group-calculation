@@ -8,27 +8,19 @@ export default class FrontrunnerCosts extends Component {
 
   render() {
     return (
-      <div class="radius bordered shadow card">
-        <div class="card-divider">
+      <div className="radius bordered shadow card">
+        <div className="card-divider">
           Frontrunner Program costs
         </div>
-        <div class="card-section">
-          <h4>Annual cost</h4>
-          <p>
-            <NumberFormat value={this.props.annualCosts} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} />
-          </p>
-          <h4>Option Month's cost</h4>
-          <p>
-            <NumberFormat value={this.props.optionMonthsCost} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} />
-          </p>
-          <h4>Adminstration cost</h4>
-          <p>
-            <NumberFormat value={this.props.administrationCost} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} />
-          </p>
-          <h4>Total cost</h4>
-          <p>
-            <NumberFormat value={this.props.totalCost} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} />
-          </p>
+        <div className="card-section">
+          <h4 className="display-header">Annual cost</h4>
+          <p className="display-value"><NumberFormat value={this.props.annualCosts} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} /></p>
+          <h4 className="display-header">Option Month's cost</h4>
+          <p className="display-value"><NumberFormat value={this.props.optionMonthsCost} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} /></p>
+          <h4 className="display-header">Adminstration cost</h4>
+          <p className="display-value"><NumberFormat value={this.props.administrationCost} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} /></p>
+          <h4 className="display-header">Total cost</h4>
+          <p className="display-value"><NumberFormat value={this.props.totalCost} displayType={'text'} thousandSeparator={true} decimalScale={0} prefix={'$'} /></p>
         </div>
       </div>
     )

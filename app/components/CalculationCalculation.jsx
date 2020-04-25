@@ -35,24 +35,24 @@ export default class CalculationCalculation extends Component {
   render() {
     return (
       <div>
-        <div class="radius bordered shadow card">
-          <div class="card-divider">
+        <div className="radius bordered shadow card">
+          <div className="card-divider">
             Calculation
           </div>
-          <div class="card-section">
-            <h4>Refund of emissions percent increase</h4>
-            <p>The company's gool to improve and increase every year in percent</p>
+          <div className="card-section">
+            <h4 className="input-header">Refund of emissions percent increase</h4>
+            <p className="input-breadcrumbs">The company's gool to improve and increase every year in percent</p>
             <StyledSlider min={0} max={100} step={1} defaultValue={0} onChange={this.handleRefundIncreaseChange} />
 
-            <h4>Removal years</h4>
-            <p>Specify how many years that reduction should last before the company is climate neutral</p>
+            <h4 className="input-header">Removal years</h4>
+            <p className="input-breadcrumbs">Specify how many years that reduction should last before the company is climate neutral</p>
             <StyledSlider min={1} max={100} step={1} defaultValue={0} onChange={this.handleRemovalYearsChange} />
 
           </div>
         </div>
         <div>
-          <h4>Choose your plan for CO<sub>2</sub> Removal</h4>
-          <p>Want to pay the same amount every year or less from the beginning and more at the end?</p>
+          <h4 className="input-header">Choose your plan for CO<sub>2</sub> Removal</h4>
+          <p className="input-breadcrumbs">Want to pay the same amount every year or less from the beginning and more at the end?</p>
           <select id="plan" onChange={this.handlePlanchange} defaultValue={this.state.plan}>
             <option value="sameAmount">Same amount</option>
             <option value="progressiveAmount">Progressive</option>
