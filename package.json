@@ -1,12 +1,17 @@
 {
-  "name": "nordicdacgroup-react-calculations",
-  "version": "1.0.0",
-  "description": "Calculations form nordic dac group",
+  "name": "nordic-dac-group-calculations",
+  "version": "0.0.1",
+  "description": "Calculations for nordic dac group made in react",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "private": true,
+  "author": {
+    "name": "Mattias Kjellsson",
+    "email": "mattias.planet4us@gmail.com",
+    "url": "https://www.planet4us.com"
+  },
   "license": "ISC",
   "dependencies": {
     "core-js": "^3.6.5",
