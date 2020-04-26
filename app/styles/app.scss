@@ -100,7 +100,8 @@ $font-family: sans-serif;
   color: $medium-gray-3;
   font-size: $font-size-smaller;
   font-weight: $font-weight-normal;
-  
+  margin-top: 0px;
+  margin-block-start: 0px;
   font-style: italic;
 }
 
@@ -144,6 +145,8 @@ $font-family: sans-serif;
   font-weight: $font-weight-normal;
   line-height: $font-size-largest;
   margin-bottom: 15px;
+  margin-top: 0px;
+  margin-block-start: 0px;
 }
 
 .chart-container {
