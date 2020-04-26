@@ -39,7 +39,7 @@ export default class CalculationSettings extends Component {
           <StyledSlider min={0} max={100} step={1} defaultValue={0}  unit={'Mt'} onChange={this.handleRefundEmissionsChange}/>
 
           <h4 className="input-header">Historical emission</h4>
-          <p className="input-breadcrumbs">TCompany's historical emissions up to today in Megaton</p>
+          <p className="input-breadcrumbs">The Company's historical emissions up to today in Megaton</p>
           <StyledSlider min={0} max={1000} step={1} defaultValue={0}  unit={'Mt'} onChange={this.handleHistoricalEmissionsChange}/>
         </div>
       </div>

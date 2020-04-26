@@ -7,4 +7,4 @@ require('style-loader!css-loader!sass-loader!./styles/app.scss');
 
 render(
   <Main />
-  , document.getElementById('app'));
+  , document.getElementById('calculation-app'));

@@ -2,6 +2,7 @@
   "name": "nordic-dac-group-calculations",
   "version": "0.0.1",
   "description": "Calculations for nordic dac group made in react",
+  "homepage": "https://www.nordicdacgroup.com/calculate/",
   "main": "index.js",
   "engines": {
     "node": ">= 13.3.0",

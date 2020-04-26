@@ -25,6 +25,15 @@ $font-size-largest: 20px;
 
 $font-family: sans-serif;
 
+.calculation-application {
+  display: flex;
+  justify-content: center;
+}
+
+.grid-x {
+  width: 50%;
+}
+
 .card {
   background: $light-gray-3;
   color: $text-color;

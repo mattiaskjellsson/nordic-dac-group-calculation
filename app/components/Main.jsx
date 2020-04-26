@@ -144,43 +144,45 @@ export default class Main extends Component {
 
   render() {
     return (
-      <div className="grid-x">
-        <div class="cell large-3 medium-2 small-0"></div>
-        <div className="large-6 medium-8 small-12">
-          <CalculationSettings 
-            onYearlyEmissionsChange={this.handleYearlyEmissionChanged}
-            onHistoricalEmissionsChange={this.handleHistoricalEmissionsChanged}
-            onRefundEmissionsChange={this.handleRefundEmissionsChanged} />
-          <CalculationEmissions 
-            yearlyEmissions={this.state.annualEmissions} 
-            historicalEmissions={this.state.historicalEmissions} 
-            refundEmissions={this.state.refundEmissions}/>
-          <CalculationCalculation 
-            onRefundIncreaseChange={this.handleRefundIncreaseChanged}
-            onRemovealYearsChange={this.handleRemovalYearsChanged}
-            onHandlePlanChange={this.handlePlanChange}
-          />
-          <CalculationValues 
-            refundQuantity={this.state.refundQuantity}
-            yearsBeforeNeutral={this.state.removalYears}
-            emissionsToRemove={this.state.emissionsToRemove}
-          />
-          <FrontrunnerCosts 
-            annualCosts={this.state.annualCosts}
-            optionMonthsCost={this.state.optionMonthsCost}
-            administrationCost={this.state.administrationCost}
-            totalCost={this.state.totalCost}
-          />
-          <Chart 
-            removalYears={this.state.removalYears}
-            emissionsToRemove={this.state.emissionsToRemove}
-            historicalEmissions = {this.state.historicalEmissions}
-            annualEmissions = {this.state.annualEmissions}
-            annualRefund = {this.state.refundEmissions}
-            annualRefundIncrease = {this.state.refundEmissions}
-          />
+      <div className="calculation-application">
+        <div className="grid-x">
+          <div class="cell large-3 medium-2 small-0"></div>
+          <div className="large-6 medium-8 small-12">
+            <CalculationSettings 
+              onYearlyEmissionsChange={this.handleYearlyEmissionChanged}
+              onHistoricalEmissionsChange={this.handleHistoricalEmissionsChanged}
+              onRefundEmissionsChange={this.handleRefundEmissionsChanged} />
+            <CalculationEmissions 
+              yearlyEmissions={this.state.annualEmissions} 
+              historicalEmissions={this.state.historicalEmissions} 
+              refundEmissions={this.state.refundEmissions}/>
+            <CalculationCalculation 
+              onRefundIncreaseChange={this.handleRefundIncreaseChanged}
+              onRemovealYearsChange={this.handleRemovalYearsChanged}
+              onHandlePlanChange={this.handlePlanChange}
+            />
+            <CalculationValues 
+              refundQuantity={this.state.refundQuantity}
+              yearsBeforeNeutral={this.state.removalYears}
+              emissionsToRemove={this.state.emissionsToRemove}
+            />
+            <FrontrunnerCosts 
+              annualCosts={this.state.annualCosts}
+              optionMonthsCost={this.state.optionMonthsCost}
+              administrationCost={this.state.administrationCost}
+              totalCost={this.state.totalCost}
+            />
+            <Chart 
+              removalYears={this.state.removalYears}
+              emissionsToRemove={this.state.emissionsToRemove}
+              historicalEmissions = {this.state.historicalEmissions}
+              annualEmissions = {this.state.annualEmissions}
+              annualRefund = {this.state.refundEmissions}
+              annualRefundIncrease = {this.state.refundEmissions}
+            />
+          </div>
+          <div class="cell large-3 medium-2 small-0"></div>
         </div>
-        <div class="cell large-3 medium-2 small-0"></div>
       </div>
     );
   }
