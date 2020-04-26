@@ -27,25 +27,11 @@ export default class StyledSlider extends Component {
       border-radius: 10px;
     `;
 
-    var width = 45;
-    const inc = 7;
-    const val = this.state.value;
-    if (val > 9999) {
-      width += 4*inc;
-    } else if (val > 999) { 
-      width += 3*inc; 
-    } else if (val > 99) {
-      width += 2*inc;
-    } else if (val > 9) {
-      width += inc;
-    }
-
-    width += this.props.unit.lenth * inc;
-    
     const StyledThumb = styled.div`
       height: 30px;
       line-height: 28px;
-      width: ${width}px;
+      padding-left: 5px;
+      padding-right: 5px;
       text-align: center;
       background-color: #3d86c6;
       color: #fff;
