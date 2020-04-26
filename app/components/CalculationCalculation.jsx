@@ -42,11 +42,11 @@ export default class CalculationCalculation extends Component {
           <div className="card-section">
             <h4 className="input-header">Refund of emissions percent increase</h4>
             <p className="input-breadcrumbs">The company's gool to improve and increase every year in percent</p>
-            <StyledSlider min={0} max={100} step={1} defaultValue={0} onChange={this.handleRefundIncreaseChange} />
+            <StyledSlider min={0} max={100} step={1} defaultValue={0} unit={'%'} onChange={this.handleRefundIncreaseChange} />
 
             <h4 className="input-header">Removal years</h4>
             <p className="input-breadcrumbs">Specify how many years that reduction should last before the company is climate neutral</p>
-            <StyledSlider min={1} max={100} step={1} defaultValue={0} onChange={this.handleRemovalYearsChange} />
+            <StyledSlider min={1} max={100} step={1} defaultValue={0} unit={'y'} onChange={this.handleRemovalYearsChange} />
 
             <h4 className="input-header">Choose your plan for CO<sub>2</sub> Removal</h4>
             <p className="input-breadcrumbs">Want to pay the same amount every year or less from the beginning and more at the end?</p>

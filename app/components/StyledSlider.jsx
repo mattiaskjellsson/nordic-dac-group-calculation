@@ -27,10 +27,25 @@ export default class StyledSlider extends Component {
       border-radius: 10px;
     `;
 
+    var width = 45;
+    const inc = 7;
+    const val = this.state.value;
+    if (val > 9999) {
+      width += 4*inc;
+    } else if (val > 999) { 
+      width += 3*inc; 
+    } else if (val > 99) {
+      width += 2*inc;
+    } else if (val > 9) {
+      width += inc;
+    }
+
+    width += this.props.unit.lenth * inc;
+    
     const StyledThumb = styled.div`
       height: 30px;
       line-height: 28px;
-      width: 30px;
+      width: ${width}px;
       text-align: center;
       background-color: #3d86c6;
       color: #fff;
@@ -40,8 +55,8 @@ export default class StyledSlider extends Component {
       position: relative;
       top: -10px;
     `;
-
-    const Thumb = (props, state) => <StyledThumb {...props}>{state.valueNow}</StyledThumb>;
+    
+  const Thumb = (props, state) => <StyledThumb {...props}>{state.valueNow + ' ' + this.props.unit }</StyledThumb>;
     
     return (
       <StyledSlider
@@ -50,6 +65,7 @@ export default class StyledSlider extends Component {
       step={this.props.step}
       defaultValue={this.props.defaultValue}
       value={this.state.value}
+      unit={this.props.unit}
       renderThumb={Thumb}
       onAfterChange={ this.handleChange }
     />
@@ -62,4 +78,5 @@ StyledSlider.defaultProps = {
   max: 100,
   step: 1,
   defaultValue: 50,
+  unit: '',
 }
