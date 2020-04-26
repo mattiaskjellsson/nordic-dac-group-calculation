@@ -3,16 +3,11 @@ const webpack = require('webpack');
 module.exports = {
   mode: 'production',
   entry: [
-    'script-loader!jquery/dist/jquery.min.js',
-    'script-loader!foundation-sites/dist/js/foundation.min.js',
     './app/app.jsx'],
   externals: {
-    jquery: 'jQuery'
   },
   plugins: [
     new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery'
     }),
   ],
   output: {
@@ -23,7 +18,6 @@ module.exports = {
     modules: [__dirname, 'node_modules'],
     alias: {
       Main: 'app/components/Main.jsx',
-      ErrorModal: 'app/components/ErrorModal.jsx',
       applicationStyles: 'app/styles/app.scss',
     },
     extensions: ['.js', '.jsx'],

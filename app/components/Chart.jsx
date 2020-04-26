@@ -54,9 +54,9 @@ export default class Chart extends Component {
 
   render() {
     return (
-      <div>
+      <div className="chart-container">
         <ComposedChart
-        width={500}
+        width={600}
         height={400}
         data={ this.state.data }
         margin={{

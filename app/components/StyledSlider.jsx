@@ -29,12 +29,13 @@ export default class StyledSlider extends Component {
 
     const StyledThumb = styled.div`
       height: 30px;
-      line-height: 30px;
+      line-height: 28px;
       width: 30px;
       text-align: center;
       background-color: #3d86c6;
       color: #fff;
-      border-radius: 5%;
+      border-radius: 5px;
+      border: 1px solid #333;
       cursor: grab;
       position: relative;
       top: -10px;
