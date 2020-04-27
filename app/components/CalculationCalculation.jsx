@@ -8,12 +8,12 @@ export default class CalculationCalculation extends Component {
     this.handleRefundIncreaseChange = this.handleRefundIncreaseChange.bind(this);
     this.handleRemovalYearsChange = this.handleRemovalYearsChange.bind(this);
     this.handlePlanchange = this.handlePlanchange.bind(this);
-    this.props = {
-      plan: 'sameAmount',
-    }
+    this.renderProgressiveAmount = this.renderProgressiveAmount.bind(this);
+    this.handleProgressiveIncreaseChange = this.handleProgressiveIncreaseChange.bind(this);
 
     this.state = {
-      plan: this.props.plan,
+      plan: CalculationCalculation.defaultProps.plan,
+      progressiveIncreaseValue: CalculationCalculation.defaultProps.progressiveIncreaseValue
     };
   }
 
@@ -30,6 +30,26 @@ export default class CalculationCalculation extends Component {
       plan: e.target.value
     });
     this.props.onHandlePlanChange(e.target.value);
+  }
+  
+  handleProgressiveIncreaseChange(e) {
+    this.setState({
+      progressiveIncreaseValue: e
+    });
+    
+    this.props.onHandleProgressiveAmountChange(e);
+  }
+
+  renderProgressiveAmount() {
+    if (this.state.plan === 'progressiveAmount') {
+      return (
+        <div>
+          <h4 className="input-header">Annual percentage increase</h4>
+          <p className="input-breadcrumbs">Specify the relative increase in collected CO<sub>2</sub> for years of the program, totalling the to the total emissions to collect</p>
+          <StyledSlider min={0} max={100} step={1} defaultValue={ this.state.progressiveIncreaseValue } unit={'%'} onChange={ this.handleProgressiveIncreaseChange } />
+        </div>
+      );
+    }
   }
   
   render() {
@@ -54,6 +74,8 @@ export default class CalculationCalculation extends Component {
               <option value="sameAmount">Same amount</option>
               <option value="progressiveAmount">Progressive</option>
             </select>
+
+            { this.renderProgressiveAmount() }
           </div>
         </div>
       </div>
@@ -63,8 +85,11 @@ export default class CalculationCalculation extends Component {
 
 CalculationCalculation.defaultProps = {
   plan: 'sameAmount',
+  progressiveIncreaseValue: 0,
 };
+
 
 CalculationCalculation.defaultState = {
   plan: CalculationCalculation.defaultProps.plan,
+  progressiveIncreaseValue: CalculationCalculation.defaultProps.progressiveIncreaseValue,
 };

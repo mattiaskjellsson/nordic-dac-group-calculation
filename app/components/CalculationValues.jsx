@@ -14,8 +14,8 @@ export default class CalculationValues extends Component {
   }
 
   render() {
-    const refund = this.props.refundQuantity.toPrecision(3);
-    const emissions = this.props.emissionsToRemove.toPrecision(3);
+    const refund = this.props.refundQuantity;
+    const emissions = this.props.emissionsToRemove;
     return (
         <div className="radius bordered shadow card">
           <div className="card-divider">

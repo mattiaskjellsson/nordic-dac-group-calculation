@@ -15,7 +15,8 @@ export default class Main extends Component {
       historicalEmissions: 0,
       refundEmissions: 0,
       refundIncrease: 0,
-      removalYears: 0,
+      removalYears: 1,
+      removalPlan: 'sameAmount',
     };
 
     this.handleYearlyEmissionChanged = this.handleYearlyEmissionChanged.bind(this);
@@ -31,6 +32,9 @@ export default class Main extends Component {
     this.administrationCost = this.administrationCost.bind(this);
     this.totalCost = this.totalCost.bind(this);
     this.updateCosts = this.updateCosts.bind(this);
+
+    this.handlePlanChange = this.handlePlanChange.bind(this);
+    this.handleProgressiveAmountChange = this.handleProgressiveAmountChange.bind(this);
   }
 
   handleYearlyEmissionChanged(e) {
@@ -68,6 +72,15 @@ export default class Main extends Component {
 
   handlePlanChange(e) {
     console.log(`Handle plan change: ${e}`);
+    this.setState({
+      removalPlan: e,
+    });
+  }
+
+  handleProgressiveAmountChange(e) {
+    this.setState({
+      progressiveIncrease: e
+    });
   }
 
   refundQuantity() {
@@ -165,6 +178,7 @@ export default class Main extends Component {
               onRefundIncreaseChange={this.handleRefundIncreaseChanged}
               onRemovealYearsChange={this.handleRemovalYearsChanged}
               onHandlePlanChange={this.handlePlanChange}
+              onHandleProgressiveAmountChange={this.handleProgressiveAmountChange}
             />
             <CalculationValues 
               refundQuantity={this.state.refundQuantity}
@@ -184,6 +198,8 @@ export default class Main extends Component {
               annualEmissions = {this.state.annualEmissions}
               annualRefund = {this.state.refundEmissions}
               annualRefundIncrease = {this.state.refundIncrease}
+              removalPlan = {this.state.removalPlan}
+              progressiveIncrease = {this.state.progressiveIncrease}
             />
           </div>
           <div class="cell large-3 medium-2 small-0"></div>
@@ -209,4 +225,5 @@ Main.defaultState = {
   optionMonthsCost: 0,
   administrationCost: 0,
   totalCost: 0,
+  removalPlan: 'sameAmount',
 };

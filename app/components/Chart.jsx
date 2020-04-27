@@ -7,12 +7,6 @@ export default class Chart extends Component {
 
     this.state = {
       data: [],
-      removalYears: Chart.defaultProps.removalYears,
-      emissionsToRemove: Chart.defaultProps.emissionsToRemove,
-      historicalEmissions: Chart.defaultProps.historicalEmissions,
-      annualEmissions: Chart.defaultProps.annualEmissions,
-      annualRefund: Chart.defaultProps.annualRefund,
-      annualRefundIncrease: Chart.defaultProps.annualRefundIncrease,
     };
         
     this.generateData = this.generateData.bind(this);
@@ -22,25 +16,34 @@ export default class Chart extends Component {
   generateData() {
     const start = new Date().getFullYear();
     
-    const data = (Array.from({length: this.props.removalYears}, (_, k) => start+k)).map(year =>{
-      const removingEmissionsPerYear = this.props.emissionsToRemove / (this.props.removalYears);
+    // Calculate x0 for progressive calculations.
+    var arr = []
+    var rate = 1 + (this.props.progressiveIncrease/100.0);
+    const years = this.props.removalYears;
+    for(var n=1; n<=this.props.removalYears; n++) {
+      arr.push(Math.pow(rate,years-n));
+    }
+
+    const sumX = arr.reduce((a, b) => a + b, 0);
+    const x0 = this.props.emissionsToRemove/sumX;
+
+    const data = (Array.from({length: this.props.removalYears}, (_, k) => start+k)).map((year, i) =>{
+
+      var removingEmissionsThisYear = 0;
+      if (this.props.removalPlan === 'sameAmount') {
+        removingEmissionsThisYear = this.props.emissionsToRemove / (this.props.removalYears);
+      } else {
+        removingEmissionsThisYear = x0*Math.pow(rate, i);
+      }
+
+      
       const currentYearRefund = year === start ? this.props.annualRefund : this.props.annualRefund * ( 1.0 + (this.props.annualRefundIncrease / 100));
       const emissionsCurrentYear = this.props.annualEmissions - currentYearRefund;
-      const yearNet = emissionsCurrentYear - removingEmissionsPerYear;
-      
-      // console.log(`Year: ${year}`);
-      // console.log(`Current year refund: ${currentYearRefund}`);
-      // console.log(`Annual Refund: ${this.props.annualRefund}`);
-      // console.log(`Annual refund increase: ${this.props.annualRefundIncrease}`)
-      // console.log(`Emissions current year: ${emissionsCurrentYear}`);
-      // console.log(`Annual Emissions: ${this.props.annualEmissions}`);
-      // console.log(`Year net: ${yearNet}`);
-      // console.log(`Removing emissions per year: ${removingEmissionsPerYear}`);
-      // console.log(`-----------------------------------------`);
+      const yearNet = emissionsCurrentYear - removingEmissionsThisYear;
 
       return {
         name: year,
-        "Removed emissions": -removingEmissionsPerYear.toFixed(2),
+        "Removed emissions": -removingEmissionsThisYear.toFixed(2),
         "Emissions": emissionsCurrentYear.toFixed(2),
         "Net emissions": yearNet.toFixed(2),
       }
@@ -90,4 +93,6 @@ Chart.defaultProps = {
   annualEmissions: 0,
   annualRefund: 0,
   annualRefundIncrease: 0,
+  removalPlan: 'sameAmount',
+  progressiveIncrease: 0,
 };
