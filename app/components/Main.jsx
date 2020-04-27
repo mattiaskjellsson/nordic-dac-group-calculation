@@ -71,16 +71,26 @@ export default class Main extends Component {
   }
 
   refundQuantity() {
+    // The refund increase is for the whole period.
+    const totalRefundedYear2toEnd = (this.state.refundEmissions * (1.0 + 1.0 * (this.state.refundIncrease/100.0))) * (this.state.removalYears - 1);
+    const totalRefundedYear1 = this.state.refundEmissions;
+    
+    var totalRefunded = 0;
+    if (this.state.removalYears > 1) {
+      totalRefunded = totalRefundedYear1 + totalRefundedYear2toEnd;
+    } else {
+      totalRefunded = totalRefundedYear1;
+    }
+
     this.setState({
       refundQuantity: 
-      (this.state.removalYears * (this.state.refundIncrease * 0.01) * this.state.refundEmissions)
+      totalRefunded
     });
   }
 
   emissionsToRemove() {
-    const yearlyEmissionsGap = this.state.annualEmissions - this.state.refundEmissions;
-    const emissions = (this.state.removalYears * yearlyEmissionsGap);
-    const toRemove = emissions + this.state.historicalEmissions - this.state.refundQuantity;
+    const emissions = (this.state.removalYears * this.state.annualEmissions) + this.state.historicalEmissions;
+    const toRemove = emissions - this.state.refundQuantity;
     
     this.setState({emissionsToRemove: toRemove});
   }
@@ -98,12 +108,7 @@ export default class Main extends Component {
 
   optionMonthsCost() {
     // {total_gap_cost}*{Price_co2_tonne}*1000/12
-    const totalGapCost = 
-      (this.state.annualEmissions - this.state.refundEmissions)
-      - (this.state.refundEmissions * (1.000 + (this.state.refundIncrease / 100.000)) * this.state.removalYears) 
-      + this.state.historicalEmissions;
-
-    const cost = totalGapCost * this.props.co2TonnePrice / 12;
+    const cost = this.state.annualCosts / 12;
     if(typeof cost !== 'number') { cost = 0; }
 
     this.setState({
@@ -114,7 +119,7 @@ export default class Main extends Component {
 
   administrationCost() {
     // {total_emissions_to_remove}*{Administration}*1000
-    const cost = (this.state.emissionsToRemove * this.props.administration) * 1000;
+    const cost = (this.state.emissionsToRemove * this.props.administration);
     if (typeof cost !== 'number') { cost = 0; }
 
     this.setState({
@@ -178,7 +183,7 @@ export default class Main extends Component {
               historicalEmissions = {this.state.historicalEmissions}
               annualEmissions = {this.state.annualEmissions}
               annualRefund = {this.state.refundEmissions}
-              annualRefundIncrease = {this.state.refundEmissions}
+              annualRefundIncrease = {this.state.refundIncrease}
             />
           </div>
           <div class="cell large-3 medium-2 small-0"></div>
@@ -189,9 +194,8 @@ export default class Main extends Component {
 };
 
 Main.defaultProps = {
-  co2TonnePrice: 300000,
+  co2TonnePrice: 300,
   administration: 1,
-  programSize: 10,
 };
 
 Main.defaultState = {

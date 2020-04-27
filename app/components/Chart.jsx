@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Bar, CartesianGrid, ComposedChart, Legend, Line, Tooltip, XAxis, YAxis } from 'recharts';
+import { Area, CartesianGrid, ComposedChart, Legend, Tooltip, XAxis, YAxis } from 'recharts';
 
 export default class Chart extends Component {
   constructor(props) {
@@ -7,41 +7,44 @@ export default class Chart extends Component {
 
     this.state = {
       data: [],
+      removalYears: Chart.defaultProps.removalYears,
+      emissionsToRemove: Chart.defaultProps.emissionsToRemove,
+      historicalEmissions: Chart.defaultProps.historicalEmissions,
+      annualEmissions: Chart.defaultProps.annualEmissions,
+      annualRefund: Chart.defaultProps.annualRefund,
+      annualRefundIncrease: Chart.defaultProps.annualRefundIncrease,
     };
-    
-    this.props = {
-      removalYears: 0,
-      emissionsToRemove: 0,
-      historicalEmissions: 0,
-      annualEmissions: 0,
-      annualRefund: 0,
-      annualRefundIncrease: 0,
-    }
-    
+        
     this.generateData = this.generateData.bind(this);
     this.componentDidUpdate = this.componentDidUpdate.bind(this);
   }
 
   generateData() {
     const start = new Date().getFullYear();
-    const end = start + this.props.removalYears;
-
-    const removingEmissionsPerYear = this.props.emissionsToRemove / this.props.removalYears;
-
-    const data = [];
     
-    for(var year = start, i = 0; year <= end; year++, i++) {
-      const emissionsThisYear = this.props.annualEmissions - this.props.annualRefund * ( 1 + this.props.annualRefundIncrease/100.0) * i;
-      const yearNet = emissionsThisYear - removingEmissionsPerYear;
-      const item = {
-        name: year,
-        yearNet: yearNet,
-        removingEmissionsPerYear: -removingEmissionsPerYear,
-        emissionsThisYear: emissionsThisYear,
-      };
+    const data = (Array.from({length: this.props.removalYears}, (_, k) => start+k)).map(year =>{
+      const removingEmissionsPerYear = this.props.emissionsToRemove / (this.props.removalYears);
+      const currentYearRefund = year === start ? this.props.annualRefund : this.props.annualRefund * ( 1.0 + (this.props.annualRefundIncrease / 100));
+      const emissionsCurrentYear = this.props.annualEmissions - currentYearRefund;
+      const yearNet = emissionsCurrentYear - removingEmissionsPerYear;
+      
+      // console.log(`Year: ${year}`);
+      // console.log(`Current year refund: ${currentYearRefund}`);
+      // console.log(`Annual Refund: ${this.props.annualRefund}`);
+      // console.log(`Annual refund increase: ${this.props.annualRefundIncrease}`)
+      // console.log(`Emissions current year: ${emissionsCurrentYear}`);
+      // console.log(`Annual Emissions: ${this.props.annualEmissions}`);
+      // console.log(`Year net: ${yearNet}`);
+      // console.log(`Removing emissions per year: ${removingEmissionsPerYear}`);
+      // console.log(`-----------------------------------------`);
 
-      data.push(item);
-    }
+      return {
+        name: year,
+        "Removed emissions": -removingEmissionsPerYear.toFixed(2),
+        "Emissions": emissionsCurrentYear.toFixed(2),
+        "Net emissions": yearNet.toFixed(2),
+      }
+    })
 
     return data;
   }
@@ -67,9 +70,9 @@ export default class Chart extends Component {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="removingEmissionsPerYear" fill="#8884d8" stroke="#8884d8" />
-          <Bar dataKey="emissionsThisYear" barSize={30} fill="#413ea0" />
-          <Line type="monotone" dataKey="yearNet" stroke="#ff7300" />
+          <Area dataKey="Removed emissions" fill="#333" stroke="#999" />
+          <Area dataKey="Emissions" barSize={30} fill="#3d86c6" />
+          <Area type="monotone" dataKey="Net emissions" stroke="#47C251" />
         </ComposedChart>
       </div>
     )
@@ -81,7 +84,7 @@ Chart.defaultState = {
 };
 
 Chart.defaultProps = {
-  removalYears: 0,
+  removalYears: 1,
   emissionsToRemove: 0,
   historicalEmissions: 0,
   annualEmissions: 0,

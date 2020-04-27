@@ -31,16 +31,16 @@ export default class CalculationSettings extends Component {
         </div>
         <div className="card-section">
           <h4 className="input-header">Annual emissions</h4>
-          <p className="input-breadcrumbs">The company's current total emissions per year in Megaton</p>
-          <StyledSlider min={0} max={100} step={1} defaultValue={0} unit={'Mt'} onChange={this.handleAnnualEmissionsChange} />
+          <p className="input-breadcrumbs">The company's current total emissions per year in ton</p>
+          <StyledSlider min={0} max={10000} step={1} defaultValue={0} unit={'t'} onChange={this.handleAnnualEmissionsChange} />
 
           <h4 className="input-header">Refund of emissions</h4>
-          <p className="input-breadcrumbs">The company's internal opportunity to repay carbon dioxide per year through its own activities and measures in Megaton.</p>
-          <StyledSlider min={0} max={100} step={1} defaultValue={0}  unit={'Mt'} onChange={this.handleRefundEmissionsChange}/>
+          <p className="input-breadcrumbs">The company's internal opportunity to repay carbon dioxide per year through its own activities and measures in ton.</p>
+          <StyledSlider min={0} max={10000} step={1} defaultValue={0}  unit={'t'} onChange={this.handleRefundEmissionsChange}/>
 
           <h4 className="input-header">Historical emission</h4>
-          <p className="input-breadcrumbs">The Company's historical emissions up to today in Megaton</p>
-          <StyledSlider min={0} max={1000} step={1} defaultValue={0}  unit={'Mt'} onChange={this.handleHistoricalEmissionsChange}/>
+          <p className="input-breadcrumbs">The Company's historical emissions up to today in ton</p>
+          <StyledSlider min={0} max={100000} step={1} defaultValue={0}  unit={'t'} onChange={this.handleHistoricalEmissionsChange}/>
         </div>
       </div>
     )
