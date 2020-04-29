@@ -1,0 +1,134 @@
+{
+  "baseData": {
+    "co2TonnePrice": 300,
+    "administrationCostPerTonne": 1,
+    "moneyUnit": "$",
+    "co2Unit": "t",
+    "timeUnitShort": "y",
+    "timeUnitLong": "Years"
+  },
+  "sliderValues": {
+    "annualEmissions": {
+      "min": 0,
+      "max": 1000,
+      "step": 10
+    },
+    "annualRefund": {
+      "min": 0,
+      "max": 1000,
+      "step": 10
+    },
+    "historicalEmissions": {
+      "min": 0,
+      "max": 10000,
+      "step": 10
+    },
+    "removalYears": {
+      "min": 1,
+      "max": 50,
+      "step": 1
+    }
+  },
+  "texts": {
+    "settings" : {
+      "header": "Settings",
+      "annualEmissions": {
+        "header": "Annual emissions",
+        "breadcrumbs": "The company's current total emissions per year in ton"
+      },
+      "annualRefund": {
+        "header": "Refund of emissions",
+        "breadcrumbs": "The company's internal opportunity to repay carbon dioxide per year through its own activities and measures in ton."
+      },
+      "historicalEmissions": {
+        "header": "Historical emissions",
+        "breadcrumbs": "The Company's historical emissions up to today in ton"
+      }
+    },
+    "emissions": {
+      "header": "Emissions",
+      "annualEmissionsHeader": "Emissions per year",
+      "historicalEmissionsHeader": "Historical emissions",
+      "refundEmissionsHeader": "Refund emissions",
+      "dacGapEmissionsHeader": "DAC Gap emissions"
+    },
+    "calculation": {
+      "header": "Calculation",
+      "refundIncrease": {
+        "header": "Refund of emissions percent increase",
+        "breadcrumbs": "The company's gool to improve and increase over the period in percent"
+      },
+      "removalYears": {
+        "header": "Removal years",
+        "breadcrumbs": "Specify how many years that reduction should last before the company is climate neutral"
+      },
+      "removalPlan": {
+        "header": "Choose your plan for CO2 Removal",
+        "breadcrumbs": "Want to pay the same amount every year or less from the beginning and more at the end?",
+        "options": {
+          "same": {
+            "option": "Same amount"
+          },
+          "progressive": {
+            "option": "Progressive",
+            "header": "Annual percentage increase",
+            "breadcrumbs": "Specify the relative increase in collected CO2 for years of the program, totalling the to the total emissions to collect"
+          }
+        }
+      }
+    },
+    "values": {
+      "header": "Values",
+      "refundQuantity": "Refund quantity",
+      "yearsBeforeNeutral": "Years before neutral",
+      "emissionsToRemove": "Emissions to remove",
+      "climateNeutral": "Climate neutral"
+    },
+    "costs": {
+      "header": "Frontrunner Program costs",
+      "unit": "$",
+      "annualCost": "Annual cost",
+      "optionMonthCost": "Option Month's cost",
+      "administrationCost": "Adminstration cost",
+      "totalCost": "Total cost"
+    },
+    "chart": {
+      "removed": "Removed emissions",
+      "emissions": "Emissions",
+      "net": "Net emissions"
+    }
+  },
+  "styling": {
+    "chart": {
+      "grid": "#f5f5f5",
+      "removedFill": "#333",
+      "removedStroke": "#999",
+      "emissionsFill": "#3d86c6",
+      "emissionsStroke": "",
+      "netEmissionsFill": "",
+      "netEmissionsStroke": "#47C251"
+    },
+    "slider": {
+      "track": {
+        "width": "100%",
+        "height": "10px",
+        "background": "#eee",
+        "borderRadius": "5px"
+      },
+      "thumb": {
+        "height": "30px",
+        "lineHeight": "28px",
+        "paddingLeft": "5px",
+        "paddingRight": "5px",
+        "textAlign": "center",
+        "backgroundColor": "#3d86c6",
+        "color": "#fff",
+        "borderRadius": "5px",
+        "border": "1px solid #333",
+        "cursor": "grab",
+        "position": "relative",
+        "top": "-10px"
+      }
+    }
+  }
+}
