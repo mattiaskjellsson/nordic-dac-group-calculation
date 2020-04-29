@@ -9,17 +9,17 @@
     "npm": ">= 6.14.4"
   },
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack && node server.js"
   },
   "private": true,
   "author": {
     "name": "Mattias Kjellsson",
-    "email": "mattias.planet4us@gmail.com",
-    "url": "https://www.planet4us.com"
+    "email": "u.m.kjellsson@gmail.com",
+    "url": "https://www.github.com/mattiaskjellsson"
   },
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "core-js": "^3.6.5",
     "express": "^4.17.1",
     "react": "^16.13.1",

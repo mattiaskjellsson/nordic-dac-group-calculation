@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React, { Component } from 'react';
 import { Area, CartesianGrid, ComposedChart, Legend, Tooltip, XAxis, YAxis } from 'recharts';
 
@@ -5,35 +6,67 @@ export default class Chart extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      data: [],
-    };
+    this.state = this.getInitialState();
         
-    this.generateData = this.generateData.bind(this);
+    this.graphData = this.graphData.bind(this);
     this.componentDidUpdate = this.componentDidUpdate.bind(this);
   }
 
-  generateData() {
+  getInitialState() {
+    return {
+      data: [],
+      colors: {
+        grid: "",
+        removedFill: "",
+        removedStroke: "",
+        emissionsFill: "",
+        emissionsStroke: "",
+        netEmissionsFill: "",
+        netEmissionsStroke: ""
+      }
+    };
+  }
+
+  componentDidMount() {
+    this.serverRequest = Axios.get(this.props.source)
+    .then(res => {
+      const r = res.data;
+      this.setState({
+          removed: r.texts.chart.removed,
+          emissions: r.texts.chart.emissions,
+          net: r.texts.chart.net,
+          colors: {
+            grid: r.styling.chart.grid,
+            removedFill: r.styling.chart.removedFill,
+            removedStroke: r.styling.chart.removedStroke,
+            emissionsFill: r.styling.chart.emissionsFill,
+            emissionsStroke: r.styling.chart.emissionsStroke,
+            netEmissionsFill: r.styling.chart.netEmissionsFill,
+            netEmissionsStroke: r.styling.chart.netEmissionsStroke
+          }
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.serverRequest.abort();
+  }
+
+  graphData() {
     const start = new Date().getFullYear();
     
-    // Calculate x0 for progressive calculations.
-    var arr = []
-    var rate = 1 + (this.props.progressiveIncrease/100.0);
-    const years = this.props.removalYears;
-    for(var n=1; n<=this.props.removalYears; n++) {
-      arr.push(Math.pow(rate,years-n));
-    }
+    // Calculate x0 (first 'payment') for progressive calculations.
+    const rate = 1 + (this.props.progressiveIncrease/100.0);
+    const coefficients = n => [...Array(n)].map((_, index) => Math.pow(rate, n-(index+1)));
+    const x0 = this.props.emissionsToRemove/(coefficients(this.props.removalYears).reduce((a, b) => a + b, 0));
 
-    const sumX = arr.reduce((a, b) => a + b, 0);
-    const x0 = this.props.emissionsToRemove/sumX;
-
-    const data = (Array.from({length: this.props.removalYears}, (_, k) => start+k)).map((year, i) =>{
+    const data = (Array.from({length: this.props.removalYears}, (_, k) => start+k)).map((year, i) => {
 
       var removingEmissionsThisYear = 0;
       if (this.props.removalPlan === 'sameAmount') {
         removingEmissionsThisYear = this.props.emissionsToRemove / (this.props.removalYears);
       } else {
-        removingEmissionsThisYear = x0*Math.pow(rate, i);
+        removingEmissionsThisYear = x0 * Math.pow(rate, i);
       }
 
       
@@ -41,12 +74,11 @@ export default class Chart extends Component {
       const emissionsCurrentYear = this.props.annualEmissions - currentYearRefund;
       const yearNet = emissionsCurrentYear - removingEmissionsThisYear;
 
-      return {
-        name: year,
-        "Removed emissions": -removingEmissionsThisYear.toFixed(2),
-        "Emissions": emissionsCurrentYear.toFixed(2),
-        "Net emissions": yearNet.toFixed(2),
-      }
+      var retObject = {};
+      retObject[this.state.removed] = -removingEmissionsThisYear.toFixed(2);
+      retObject[this.state.emissions] = emissionsCurrentYear.toFixed(2);
+      retObject[this.state.net] =  yearNet.toFixed(2);
+      return retObject;
     })
 
     return data;
@@ -54,7 +86,7 @@ export default class Chart extends Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps !== this.props) {
-      this.setState({data: this.generateData() });
+      this.setState({data: this.graphData() });
     }
   }
 
@@ -68,22 +100,31 @@ export default class Chart extends Component {
         margin={{
           top: 20, right: 20, bottom: 20, left: 20,
         }}>
-          <CartesianGrid stroke="#f5f5f5" />
+          <CartesianGrid stroke={this.state.colors.grid} />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
           <Legend />
-          <Area dataKey="Removed emissions" fill="#333" stroke="#999" />
-          <Area dataKey="Emissions" barSize={30} fill="#3d86c6" />
-          <Area type="monotone" dataKey="Net emissions" stroke="#47C251" />
+          <Area dataKey={ this.state.removed} fill={this.state.colors.removedFill} stroke={this.state.colors.removedStroke} />
+          <Area dataKey={ this.state.emissions} barSize={30} fill={this.state.colors.emissionsFill} stroke={this.state.colors.emissionsStroke} />
+          <Area type="monotone" dataKey={this.state.net} fill={this.state.colors.netEmissionsFill} stroke={this.state.colors.netEmissionsStroke} />
         </ComposedChart>
       </div>
-    )
+    );
   }
 }
 
 Chart.defaultState = {
   data: [],
+  colors: {
+    grid: "",
+    removedFill: "",
+    removedStroke: "",
+    emissionsFill: "",
+    emissionsStroke: "",
+    netEmissionsFill: "",
+    netEmissionsStroke: ""
+  }
 };
 
 Chart.defaultProps = {
@@ -95,4 +136,5 @@ Chart.defaultProps = {
   annualRefundIncrease: 0,
   removalPlan: 'sameAmount',
   progressiveIncrease: 0,
+  source: './data.json'
 };

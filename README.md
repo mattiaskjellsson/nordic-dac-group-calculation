@@ -6,3 +6,4 @@ Libraries used
 * react-slider
 * styled-components
 * react-number-format
+* axios

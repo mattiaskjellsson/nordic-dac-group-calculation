@@ -1,3 +1,4 @@
+import Axios from 'axios';
 import React, { Component } from 'react';
 
 import CalculationCalculation from './CalculationCalculation';
@@ -7,18 +8,12 @@ import CalculationValues from './CalculationValues';
 import Chart from './Chart';
 import FrontrunnerCosts from './FrontrunnerCosts';
 
+
 export default class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      annualEmissions: 0,
-      historicalEmissions: 0,
-      refundEmissions: 0,
-      refundIncrease: 0,
-      removalYears: 1,
-      removalPlan: 'sameAmount',
-    };
-
+    this.state = this.getInitialState();
+    
     this.handleYearlyEmissionChanged = this.handleYearlyEmissionChanged.bind(this);
     this.handleHistoricalEmissionsChanged = this.handleHistoricalEmissionsChanged.bind(this);
     this.handleRefundEmissionsChanged = this.handleRefundEmissionsChanged.bind(this);
@@ -35,6 +30,45 @@ export default class Main extends Component {
 
     this.handlePlanChange = this.handlePlanChange.bind(this);
     this.handleProgressiveAmountChange = this.handleProgressiveAmountChange.bind(this);
+  }
+
+  getInitialState() {
+    return {
+      annualEmissions: 0,
+      historicalEmissions: 0,
+      refundEmissions: 0,
+      refundIncrease: 0,
+      removalYears: 1,
+      removalPlan: 'sameAmount',
+    };
+  }
+
+  componentDidMount() {
+    this.serverRequest = Axios.get(this.props.source)
+    .then(res => {
+      const r = res.data;
+      this.setState({
+          annualEmissions: r.sliderValues.annualEmissions.min,
+          historicalEmissions: r.sliderValues.historicalEmissions.min,
+          refundEmissions: r.sliderValues.annualRefund.min,
+          refundIncrease: r.sliderValues.annualRefund.min,
+          refundQuantity: r.sliderValues.annualRefund.min,
+          removalYears: r.sliderValues.removalYears.min,
+          // TODO:: Make dynamic as well...
+          annualCosts: 0,
+          optionMonthsCost: 0,
+          administrationCost: 0,
+          totalCost: 0,
+          removalPlan: 'sameAmount',
+          // Previously props
+          co2TonnePrice: r.baseData.co2TonnePrice,
+          administration: r.baseData.administrationCostPerTonne,
+      });
+    });
+  }
+
+  componentWillUnmount() {
+    this.serverRequest.abort();
   }
 
   handleYearlyEmissionChanged(e) {
@@ -71,10 +105,7 @@ export default class Main extends Component {
   }
 
   handlePlanChange(e) {
-    console.log(`Handle plan change: ${e}`);
-    this.setState({
-      removalPlan: e,
-    });
+    this.setState({ removalPlan: e});
   }
 
   handleProgressiveAmountChange(e) {
@@ -96,8 +127,7 @@ export default class Main extends Component {
     }
 
     this.setState({
-      refundQuantity: 
-      totalRefunded
+      refundQuantity: totalRefunded
     });
   }
 
@@ -110,12 +140,11 @@ export default class Main extends Component {
 
   annualCosts() {
     //({total_emissions_to_remove}*{Price_co2_tonne}) / ({removal_years})*1000
-    const cost = this.state.emissionsToRemove * this.props.co2TonnePrice / this.state.removalYears;
+    const cost = this.state.emissionsToRemove * this.state.co2TonnePrice / this.state.removalYears;
     if(typeof cost !== 'number') { cost = 0; }
 
     this.setState({
-      annualCosts:
-      cost
+      annualCosts: cost
     });
   }
 
@@ -125,19 +154,17 @@ export default class Main extends Component {
     if(typeof cost !== 'number') { cost = 0; }
 
     this.setState({
-      optionMonthsCost:
-      cost
+      optionMonthsCost: cost
     });
   }
 
   administrationCost() {
     // {total_emissions_to_remove}*{Administration}*1000
-    const cost = (this.state.emissionsToRemove * this.props.administration);
+    const cost = (this.state.emissionsToRemove * this.state.administration);
     if (typeof cost !== 'number') { cost = 0; }
 
     this.setState({
-      administrationCost:
-      cost
+      administrationCost: cost
     });
   }
 
@@ -148,8 +175,7 @@ export default class Main extends Component {
     if (typeof cost !== 'number') { cost = 0; }
 
     this.setState({
-      totalCost:
-      cost
+      totalCost: cost
     });
   }
 
@@ -169,11 +195,13 @@ export default class Main extends Component {
             <CalculationSettings 
               onYearlyEmissionsChange={this.handleYearlyEmissionChanged}
               onHistoricalEmissionsChange={this.handleHistoricalEmissionsChanged}
-              onRefundEmissionsChange={this.handleRefundEmissionsChanged} />
+              onRefundEmissionsChange={this.handleRefundEmissionsChanged}
+            />
             <CalculationEmissions 
               yearlyEmissions={this.state.annualEmissions} 
               historicalEmissions={this.state.historicalEmissions} 
-              refundEmissions={this.state.refundEmissions}/>
+              refundEmissions={this.state.refundEmissions}
+            />
             <CalculationCalculation 
               onRefundIncreaseChange={this.handleRefundIncreaseChanged}
               onRemovealYearsChange={this.handleRemovalYearsChanged}
@@ -210,20 +238,5 @@ export default class Main extends Component {
 };
 
 Main.defaultProps = {
-  co2TonnePrice: 300,
-  administration: 1,
-};
-
-Main.defaultState = {
-  annualEmissions: 0,
-  historicalEmissions: 0,
-  refundEmissions: 0,
-  refundIncrease: 0,
-  refundQuantity: 0,
-  removalYears: 1,
-  annualCosts: 0,
-  optionMonthsCost: 0,
-  administrationCost: 0,
-  totalCost: 0,
-  removalPlan: 'sameAmount',
-};
+  source: "./data.json"
+}
