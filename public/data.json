@@ -2,7 +2,6 @@
   "baseData": {
     "co2TonnePrice": 300,
     "administrationCostPerTonne": 1,
-    "moneyUnit": "$",
     "co2Unit": "t",
     "timeUnitShort": "y",
     "timeUnitLong": "Years"
