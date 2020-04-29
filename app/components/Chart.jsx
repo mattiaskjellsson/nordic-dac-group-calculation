@@ -136,5 +136,5 @@ Chart.defaultProps = {
   annualRefundIncrease: 0,
   removalPlan: 'sameAmount',
   progressiveIncrease: 0,
-  source: './data.json'
+  source: '../react/data.json'
 };

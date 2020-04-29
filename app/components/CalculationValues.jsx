@@ -100,5 +100,5 @@ CalculationValues.defaultProps = {
   refundQuantity: 0,
   yearsBeforeNeutral: 0,
   emissionsToRemove: 0,
-  source: "./data.json"
+  source: "../react/data.json"
 }

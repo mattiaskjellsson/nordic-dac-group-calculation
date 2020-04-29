@@ -98,5 +98,5 @@ CalculationEmissions.defaultProps = {
   yearlyEmissions: 0,
   historicalEmissions: 0,
   refundEmissions: 0,
-  source: './data.json',
+  source: '../react/data.json',
 }

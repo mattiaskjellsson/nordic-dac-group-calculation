@@ -139,5 +139,5 @@ export default class CalculationSettings extends Component {
 }
 
 CalculationSettings.defaultProps = {
-  source: "./data.json",
+  source: "../react/data.json",
 }

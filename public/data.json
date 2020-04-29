@@ -101,7 +101,7 @@
   "styling": {
     "chart": {
       "grid": "#f5f5f5",
-      "removedFill": "#333",
+      "removedFill": "#ccc",
       "removedStroke": "#999",
       "emissionsFill": "#3d86c6",
       "emissionsStroke": "",

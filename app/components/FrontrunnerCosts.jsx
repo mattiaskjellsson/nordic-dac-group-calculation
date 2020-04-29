@@ -11,12 +11,12 @@ export default class FrontrunnerCosts extends Component {
 
   getInitialState() {
     return {
-      header: "",
-      unit: "",
-      annualCost: "",
-      optionMonthCost: "",
-      administrationCost: "",
-      totalCost: "",
+        header: "Frontrunner Program costs",
+        unit: "$",
+        annualCost: "Annual cost",
+        optionMonthCost: "Option Month's cost",
+        administrationCost: "Adminstration cost",
+        totalCost: "Total cost"
     };
   }
 
@@ -24,6 +24,7 @@ export default class FrontrunnerCosts extends Component {
     this.serverRequest = Axios.get(this.props.source)
     .then(res => {
       const r = res.data;
+      console.log(r.texts.costs);
       this.setState({
         header: r.texts.costs.header,
         unit: r.texts.costs.unit,
@@ -92,5 +93,5 @@ FrontrunnerCosts.defaultProps = {
   optionMonthsCost: 0,
   administrationCost: 0,
   totalCost: 0,
-  source: './data.json',
+  source: '../react/data.json',
 };

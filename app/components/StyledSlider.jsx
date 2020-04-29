@@ -129,5 +129,5 @@ StyledSlider.defaultProps = {
   step: 1,
   defaultValue: 50,
   unit: '',
-  source: './data.json'
+  source: '../react/data.json'
 }

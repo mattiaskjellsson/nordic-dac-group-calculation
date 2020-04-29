@@ -238,5 +238,5 @@ export default class Main extends Component {
 };
 
 Main.defaultProps = {
-  source: "./data.json"
+  source: "../react/data.json"
 }

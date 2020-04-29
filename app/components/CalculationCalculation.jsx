@@ -200,7 +200,7 @@ export default class CalculationCalculation extends Component {
 CalculationCalculation.defaultProps = {
   plan: 'sameAmount',
   progressiveIncreaseValue: 0,
-  source: './data.json',
+  source: '../react/data.json',
 };
 
 
